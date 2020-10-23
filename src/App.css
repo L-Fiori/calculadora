@@ -1,5 +1,19 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
+  font-weight: normal;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(to right, rgba(141, 103, 230, 0.815), rgb(0, 0, 0));
+}
 .App {
   text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .App-logo {
@@ -35,4 +49,61 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.content {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  min-height: 100vh;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
+
+.content > button {
+  cursor: pointer;
+  font-size: 2rem;
+  border: 1px solid white;
+  outline: none;
+  background-color: rgba(255, 255, 255, .75);
+}
+
+.content > button:hover {
+  background-color: rgba(255, 255, 255, .9);
+}
+
+.content .equal {
+  background-color: rgba(187, 72, 72);
+  grid-column: span 2;
+}
+
+.content .op {
+  background-color: rgba(7, 163, 45, .64);
+
+}
+
+.content .triplo {
+  grid-column: span 3;
+}
+
+.display {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 10px;
+  word-wrap: break-word;
+  background-color: black;
+  word-break: break-all;
+}
+
+.display .prev-op {
+  color: rgba(255, 255, 255, .75);
+  font-size: 1.5rem;
+}
+
+.display .curr-op {
+  color: white;
+  font-size: 2.5rem;
 }
