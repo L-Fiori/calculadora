@@ -60,13 +60,20 @@ class App extends Component {
     this.state = {
       currentOperand: "",
       previousOperand: "",
-      operation: ""
+      operation: "",
+      memory: []
     };
     this.addNumber = this.addNumber.bind(this);
     this.addOperation = this.addOperation.bind(this);
     this.addComma = this.addComma.bind(this);
     this.calculate = this.calculate.bind(this);
-    this.clear = this.clear.bind(this);
+    this.clearAllMemory = this.clearAllMemory.bind(this);
+    this.recallLast = this.recallLast.bind(this);
+    this.addToLast = this.addToLast.bind(this);
+    this.save = this.save.bind(this);
+    this.clearSingleMemoryValue = this.clearSingleMemoryValue.bind(this);
+    this.recallSingleMemoryValue = this.recallSingleMemoryValue.bind(this);
+
     console.log(
       getDisplayNumber('1231213')
     );
@@ -140,7 +147,71 @@ class App extends Component {
         currentOperand: "",
       };
     });
+  };
+
+  clearAllMemory() {
+    this.setState(state => {
+      return {
+        memory: []
+      };
+    });
+  };
+
+  recallLast() {
+    let lastValue = this.state.memory[0];
+    const newMemory = this.state.memory.filter((item) => item !== lastValue);
+
+    this.setState(state => {
+      return {
+        currentOperand: lastValue,
+        memory: newMemory
+      };
+    });
+  };
+
+  addToLast() {
+    let newNumber = operate(this.state.currentOperand, this.state.memory[0], "+");
+    this.state.memory.splice(0, 1, newNumber);
+
+    this.setState(state => {
+      return {
+        currentOperand: ""
+      }
+    })
   }
+
+  save() {
+    if (this.state.currentOperand !== "" || this.state.previousOperand !== "") {
+      this.state.currentOperand !== "" ? this.state.memory.splice(0, 0, this.state.currentOperand) : this.state.memory.splice(0, 0, this.state.previousOperand);
+    };
+
+    this.setState(state => {
+      return {
+        currentOperand: ""
+      };
+    });
+  };
+
+  clearSingleMemoryValue(i) {
+    const newMemory = this.state.memory.filter((item) => item !== this.state.memory[i]);
+
+    this.setState(state => {
+      return {
+        memory: newMemory
+      };
+    });
+  };
+  
+  recallSingleMemoryValue(i) {
+    const newMemory = this.state.memory.filter((item) => item !== this.state.memory[i]);
+
+    this.setState(state => {
+      return {
+        currentOperand: state.memory[i],
+        memory: newMemory
+      };
+    });
+  };
 
   render() {
     return (
@@ -151,6 +222,12 @@ class App extends Component {
             <Display className="curr-op" value={this.state.currentOperand} />
           </div>
           {/* <Keypad/> */}
+
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearAllMemory()}/>
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallLast()} />
+          <Button className="memory-button" text="M+" aoClicar={() => this.addToLast()}/>
+          <Button className="memory-button" text="MS" aoClicar={() => this.save()}/>
+
           <Button className="triplo" text="AC" aoClicar={() => this.clear()} />
           <Button className="op" text="/" aoClicar={() => this.addOperation("/")} />
 
@@ -174,6 +251,37 @@ class App extends Component {
 
           {/* <EqualButton/> */}
           <Button className="equal" text="=" aoClicar={() => this.calculate()} />
+        </div>
+        <div className="sep">
+        </div>
+        <div className="content">
+          <Display className="memory-display" value={this.state.memory[0]} />
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearSingleMemoryValue(0)} />
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallSingleMemoryValue(0)} />
+
+          <Display className="memory-display" value={this.state.memory[1]} />
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearSingleMemoryValue(1)} />
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallSingleMemoryValue(1)} />
+
+          <Display className="memory-display" value={this.state.memory[2]} />
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearSingleMemoryValue(2)} />
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallSingleMemoryValue(2)} />
+
+          <Display className="memory-display" value={this.state.memory[3]} />
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearSingleMemoryValue(3)} />
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallSingleMemoryValue(3)} />
+
+          <Display className="memory-display" value={this.state.memory[4]} />
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearSingleMemoryValue(4)} />
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallSingleMemoryValue(4)} />
+
+          <Display className="memory-display" value={this.state.memory[5]} />
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearSingleMemoryValue(5)} />
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallSingleMemoryValue(5)} />
+
+          <Display className="memory-display" value={this.state.memory[6]} />
+          <Button className="memory-button" text="MC" aoClicar={() => this.clearSingleMemoryValue(6)} />
+          <Button className="memory-button" text="MR" aoClicar={() => this.recallSingleMemoryValue(6)} />
         </div>
       </div>
     );

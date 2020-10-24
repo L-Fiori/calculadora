@@ -51,16 +51,26 @@ body {
   }
 }
 
+.memory-display {
+  margin: 1px;
+  grid-column: span 2;
+  background-color: rgba(0, 0, 0, .72);
+  color: white;
+  font-size: 2.5rem;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
 .content {
   display: grid;
   justify-content: center;
   align-content: center;
   min-height: 100vh;
   grid-template-columns: repeat(4, 100px);
-  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+  grid-template-rows: minmax(120px, auto) repeat(6, 100px);
 }
 
-.content > button {
+button {
   cursor: pointer;
   font-size: 2rem;
   border: 1px solid white;
@@ -68,8 +78,16 @@ body {
   background-color: rgba(255, 255, 255, .75);
 }
 
+button:hover {
+  background-color: rgba(255, 255, 255, .9);
+}
+
 .content > button:hover {
   background-color: rgba(255, 255, 255, .9);
+}
+
+.memory-button {
+  background-color: rgba(15, 212, 253, .99);
 }
 
 .content .equal {
@@ -79,7 +97,6 @@ body {
 
 .content .op {
   background-color: rgba(7, 163, 45, .64);
-
 }
 
 .content .triplo {
@@ -94,7 +111,7 @@ body {
   flex-direction: column;
   padding: 10px;
   word-wrap: break-word;
-  background-color: black;
+  background-color: rgba(0, 0, 0, .72);
   word-break: break-all;
 }
 
@@ -106,4 +123,8 @@ body {
 .display .curr-op {
   color: white;
   font-size: 2.5rem;
+}
+
+.sep {
+  padding: 20px;
 }
